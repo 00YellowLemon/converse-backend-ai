@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ai-conversation-coach
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: GOOGLE_API_KEY
+        fromGroup: true
+      - key: PYTHON_VERSION
+        value: 3.11
+    plan: free
