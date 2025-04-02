@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 from typing import List, Dict
 from langchain_core.messages import HumanMessage, AIMessage
 from assistant import initialize_assistant
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables
 load_dotenv()
@@ -21,6 +22,15 @@ app = FastAPI(
     title="AI Conversation Coach API",
     description="Provides AI-powered feedback on user communication.",
     version="1.1.1"
+)
+
+# Add CORS middleware to allow all origins, methods, and headers
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Request Models (HistoryMessage remains, CoachingResponse is removed)
