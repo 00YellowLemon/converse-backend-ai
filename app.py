@@ -1,6 +1,7 @@
 import uvicorn
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware  # Add this import
 from pydantic import BaseModel, Field
 from typing import List, Dict
 from assistant import initialize_assistant
@@ -20,6 +21,15 @@ app = FastAPI(
     title="AI Conversation Coach API",
     description="Provides AI-powered feedback on user communication.",
     version="1.1.1"
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
 )
 
 class HistoryMessage(BaseModel):
